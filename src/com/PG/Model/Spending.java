@@ -1,5 +1,8 @@
 package com.PG.Model;
 
+import java.time.LocalDate;
+import java.time.LocalDate;
+
 public class Spending {
 	
 	
@@ -10,6 +13,8 @@ public class Spending {
 	private int e_id;
 	private int s_id;
 	private int quantity;
+	
+	private LocalDate trnsc_dt;
 	
 	@Override
 	public String toString() {
@@ -22,7 +27,12 @@ public class Spending {
 	            ", quantity=" + quantity +
 	            '}';
 	}
+	
+	public boolean isSpecifiedTrnsc_dt() { 
+	    return trnsc_dt != null; 
+	}
 
+	
 	// isSpecified methods
 	public boolean isSpecifiedCategory() { 
 	    return category != null && !category.trim().isEmpty(); 
@@ -48,6 +58,16 @@ public class Spending {
 	    return quantity > 0; 
 	}
 	
+	
+	
+	public LocalDate getTrnsc_dt() {
+		return trnsc_dt;
+	}
+
+	public void setTrnsc_dt(LocalDate trnsc_dt) {
+		this.trnsc_dt = trnsc_dt;
+	}
+
 	public int getE_id() {
 		return e_id;
 	}
@@ -85,15 +105,19 @@ public class Spending {
 		this.amount = amount;
 	}
 	
-		public Spending(int quantity, String category, String desc, int amount, int e_id, int s_id) {
+	
+		public Spending(String category, String desc, int amount, int e_id, int s_id, int quantity, LocalDate trnsc_dt) {
 		super();
-		this.quantity = quantity;
 		this.category = category;
 		this.desc = desc;
 		this.amount = amount;
 		this.e_id = e_id;
 		this.s_id = s_id;
+		this.quantity = quantity;
+		this.trnsc_dt = trnsc_dt;
 	}
+
+	
 	
 	
 
