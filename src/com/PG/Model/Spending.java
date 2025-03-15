@@ -2,26 +2,80 @@ package com.PG.Model;
 
 public class Spending {
 	
-	private int quantity;
-	private StringBuffer category;
-	private StringBuffer desc;
+	
+	private String category;
+	private String desc;
+	
 	private int amount;
+	private int e_id;
+	private int s_id;
+	private int quantity;
+	
+	@Override
+	public String toString() {
+	    return "Entity{" +
+	            "category='" + category + '\'' +
+	            ", desc='" + desc + '\'' +
+	            ", amount=" + amount +
+	            ", e_id=" + e_id +
+	            ", s_id=" + s_id +
+	            ", quantity=" + quantity +
+	            '}';
+	}
+
+	// isSpecified methods
+	public boolean isSpecifiedCategory() { 
+	    return category != null && !category.trim().isEmpty(); 
+	}
+
+	public boolean isSpecifiedDesc() { 
+	    return desc != null && !desc.trim().isEmpty(); 
+	}
+
+	public boolean isSpecifiedAmount() { 
+	    return amount > 0; 
+	}
+
+	public boolean isSpecifiedE_id() { 
+	    return e_id > 0; 
+	}
+
+	public boolean isSpecifiedS_id() { 
+	    return s_id > 0; 
+	}
+
+	public boolean isSpecifiedQuantity() { 
+	    return quantity > 0; 
+	}
+	
+	public int getE_id() {
+		return e_id;
+	}
+	public void setE_id(int e_id) {
+		this.e_id = e_id;
+	}
+	public int getS_id() {
+		return s_id;
+	}
+	public void setS_id(int s_id) {
+		this.s_id = s_id;
+	}
 	public int getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public StringBuffer getCategory() {
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(StringBuffer category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
-	public StringBuffer getDesc() {
+	public String getDesc() {
 		return desc;
 	}
-	public void setDesc(StringBuffer desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 	public int getAmount() {
@@ -31,12 +85,14 @@ public class Spending {
 		this.amount = amount;
 	}
 	
-	public Spending(int quantity, StringBuffer category, StringBuffer desc, int amount) {
+		public Spending(int quantity, String category, String desc, int amount, int e_id, int s_id) {
 		super();
 		this.quantity = quantity;
 		this.category = category;
 		this.desc = desc;
 		this.amount = amount;
+		this.e_id = e_id;
+		this.s_id = s_id;
 	}
 	
 	

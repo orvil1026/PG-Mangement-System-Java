@@ -1,18 +1,56 @@
 package com.PG.Model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 public class Tenant {
 	
 	private int t_id;
-	private LocalDate join_dt;
 	private int monthly_rent;
-	private boolean is_active;
-	private LocalDate left_dt;
 	private int room_no;
 	
+	private boolean is_active;
+	
+	private LocalDate join_dt;
+	private LocalDate left_dt;
+	
+	@Override
+	public String toString() {
+	    return "Tenant{" +
+	            "t_id=" + t_id +
+	            ", monthly_rent=" + monthly_rent +
+	            ", room_no=" + room_no +
+	            ", is_active=" + is_active +
+	            ", join_dt=" + join_dt +
+	            ", left_dt=" + left_dt +
+	            '}';
+	}
+
+	// isSpecified methods
+	public boolean isSpecifiedT_id() { 
+	    return t_id > 0; 
+	}
+
+	public boolean isSpecifiedMonthlyRent() { 
+	    return monthly_rent > 0; 
+	}
+
+	public boolean isSpecifiedRoomNo() { 
+	    return room_no > 0; 
+	}
+
+	public boolean isSpecifiedIsActive() { 
+	    return true; // Boolean always has a value 
+	}
+
+	public boolean isSpecifiedJoinDt() { 
+	    return join_dt != null; 
+	}
+
+	public boolean isSpecifiedLeftDt() { 
+	    return left_dt != null; 
+	}
+
 	
 	public int getT_id() {
 		return t_id;
