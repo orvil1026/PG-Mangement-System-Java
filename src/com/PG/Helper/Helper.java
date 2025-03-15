@@ -9,23 +9,36 @@ import java.sql.SQLException;
 
 public class Helper {
 	
-	private static Connection connection;
-	private static PreparedStatement preparedstatement;
-	
-	public static PreparedStatement getPreparedStatement(String sql) throws SQLException, ClassNotFoundException {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		
-		String url =  "jdbc:mysql://localhost:3306/pg?useSSL=false";
-		
-		Helper.connection = DriverManager.getConnection(url, "root", "orvil@1026");
-		
-		Helper.preparedstatement = Helper.connection.prepareStatement(sql);
-		return Helper.preparedstatement;
-	}
-	
-	public static void close() throws SQLException{
-		Helper.preparedstatement.close();
-		Helper.connection.close();
-	}
+	 private static final String URL = "jdbc:mysql://localhost:3306/pg?useSSL=false";
+	    private static final String USER = "root";
+	    private static final String PASSWORD = "orvil@1026";
+	    private static Connection connection;
+
+	    // Load the driver and establish a single connection
+	    static {
+	        try {
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+	        } catch (ClassNotFoundException | SQLException e) {
+	            e.printStackTrace();
+	            throw new RuntimeException("Database connection failed!");
+	        }
+	    }
+
+	    // Get PreparedStatement (No new connection each time)
+	    public static PreparedStatement getPreparedStatement(String sql) throws SQLException {
+	        return connection.prepareStatement(sql);
+	    }
+
+	    // Close the connection when application shuts down
+	    public static void closeConnection() {
+	        try {
+	            if (connection != null && !connection.isClosed()) {
+	                connection.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 }
