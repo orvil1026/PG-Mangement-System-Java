@@ -41,16 +41,16 @@ public class Employee {
 		return join_dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 
-	public void setJoin_dt(LocalDate join_dt) {
-		this.join_dt = join_dt;
+	public void setJoin_dt(String dateString) {
+		this.join_dt = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 
 	public String getLeft_dt() {
 		return left_dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 
-	public void setLeft_dt(LocalDate left_dt) {
-		this.left_dt = left_dt;
+	public void setLeft_dt(String dateString) {
+		this.left_dt = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);;
 	}
 
 	public int getE_id() {

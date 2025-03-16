@@ -1,6 +1,7 @@
 package com.PG.DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.PG.Helper.Helper;
@@ -68,5 +69,32 @@ public class EmployeeDAO {
 		output = preparedStatement.executeUpdate();
 		
 		return output;
+	}
+	
+	
+	public Employee getEmpByID(int e_id) throws ClassNotFoundException, SQLException{
+		int output = 0;
+		String sql = "select * from Employee where e_id = ? ";
+		Employee emp = new Employee();
+		emp.setE_id(e_id);
+		
+		PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
+		
+		preparedStatement.setInt(1, e_id);
+		
+		
+		ResultSet view = preparedStatement.executeQuery();
+		
+		while(view.next()) {
+			emp.setSalary(view.getInt("salary"));
+			emp.setDesc(view.getString("descrptn"));
+			emp.setName(view.getString("nm"));
+			emp.setMob_no(view.getString("mob_no"));
+			emp.setJoin_dt(view.getString("join_dt"));
+			emp.setLeft_dt(view.getString("left_dt"));
+			emp.setIs_active(view.getBoolean("is_active"));
+		}
+		
+		return emp;
 	}
 }
