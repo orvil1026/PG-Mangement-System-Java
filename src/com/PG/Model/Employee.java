@@ -1,7 +1,7 @@
 package com.PG.Model;
 
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 
 public class Employee {
 	
@@ -37,16 +37,16 @@ public class Employee {
 		this.is_active = is_active;
 	}
 
-	public LocalDate getJoin_dt() {
-		return join_dt;
+	public String getJoin_dt() {		
+		return join_dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 
 	public void setJoin_dt(LocalDate join_dt) {
 		this.join_dt = join_dt;
 	}
 
-	public LocalDate getLeft_dt() {
-		return left_dt;
+	public String getLeft_dt() {
+		return left_dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 
 	public void setLeft_dt(LocalDate left_dt) {
@@ -124,6 +124,24 @@ public class Employee {
 		this.desc = desc;
 		this.name = name;
 	}
+	
+	public Employee( int salary, String mob_no, boolean is_active, LocalDate join_dt, LocalDate left_dt,
+			String desc, String name) {
+		super();
+	
+		this.salary = salary;
+		this.mob_no = mob_no;
+		this.is_active = is_active;
+		this.join_dt = join_dt;
+		this.left_dt = left_dt;
+		this.desc = desc;
+		this.name = name;
+	}
+	
+	public Employee() {
+		super();
+	}
+	
 	
 	
 	@Override

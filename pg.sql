@@ -2,13 +2,13 @@ Create database PG;
 Use pg;
 
 CREATE TABLE Room(
-	r_no INT primary key,
+	r_no INT primary key AUTO_INCREMENT,
     capacity INT,
     occupied_count INT
 );
 
 CREATE TABLE Tenant(
-	t_id INT primary key,
+	t_id INT primary key AUTO_INCREMENT,
     monthly_rent INT,
     room_no INT references Room(r_no),
     is_active boolean,
@@ -17,7 +17,7 @@ CREATE TABLE Tenant(
 );
 
 CREATE TABLE Rent(
-	r_id INT primary key,
+	r_id INT primary key AUTO_INCREMENT,
     t_id INT references Tenant(t_id),
     room_no INT references Room(r_no),
     amount INT,
@@ -30,7 +30,7 @@ CREATE TABLE Rent(
 
 
 CREATE TABLE Spending(
-	s_id INT primary key,
+	s_id INT primary key AUTO_INCREMENT,
     amount INT,
     quantity INT,
     category varchar(20),
@@ -40,7 +40,7 @@ CREATE TABLE Spending(
 );
 
 CREATE TABLE Employee(
-	e_id INT primary key,
+	e_id INT primary key AUTO_INCREMENT,
     salary INT,
     descrptn varchar(100),
     nm varchar(50),
@@ -50,4 +50,6 @@ CREATE TABLE Employee(
     is_active boolean
 );
 
- 
+Insert into Employee (salary, descrptn, nm , mob_no, join_dt, left_dt, is_active  ) values (20000, 'Cleaner', 'Orvil', '90123123', '2025-03-16', null, true );
+
+ select * from Employee;
