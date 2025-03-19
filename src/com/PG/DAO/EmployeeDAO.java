@@ -3,6 +3,7 @@ package com.PG.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.PG.Helper.Helper;
 import com.PG.Model.Employee;
@@ -117,4 +118,60 @@ public class EmployeeDAO {
 		
 		return emp;
 	}
+	
+	public ArrayList<Employee> getAllEmp() throws ClassNotFoundException, SQLException{
+		
+		ArrayList<Employee> emps_arr = new ArrayList<Employee>();
+		
+		String sql = "select * from Employee";
+		
+		
+		
+		PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
+		
+		
+		ResultSet view = preparedStatement.executeQuery();
+		
+		while(view.next()) {
+			
+			Employee emp = new Employee();
+			
+			emp.setE_id(view.getInt("e_id"));
+			
+			emp.setSalary(view.wasNull() ? 0 : view.getInt("salary")); 
+
+			String desc = view.getString("descrptn");
+			emp.setDesc(desc != null ? desc : null ); // Default to empty string if NULL
+
+			String name = view.getString("nm");
+			emp.setName(name != null ? name : null); // Default to empty string
+
+			String mobNo = view.getString("mob_no");
+			emp.setMob_no(mobNo != null ? mobNo : null ); // Default to empty string
+
+			String joinDtStr = view.getString("join_dt");
+			if(joinDtStr != null) {
+				emp.setJoin_dt(joinDtStr); 
+			}
+
+			String leftDtStr = view.getString("left_dt");
+			if(leftDtStr != null) {
+				emp.setLeft_dt(leftDtStr); 
+			}
+			// Parse if not NULL
+
+			// Handle boolean (stored as INT)
+			boolean active = view.getInt("is_active") == 1; 
+			if (view.wasNull()) active = false; // If NULL, default to false
+			emp.setIs_active(active);
+			
+			emps_arr.add(emp);
+
+		}
+		
+		return emps_arr;
+		
+	}
+	
+	
 }
