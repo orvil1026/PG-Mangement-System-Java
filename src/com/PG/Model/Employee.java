@@ -42,14 +42,21 @@ public class Employee {
 	}
 
 	public void setJoin_dt(String dateString) {
+		if(dateString == null) {
+			this.join_dt = null;
+		}
 		this.join_dt = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 
 	public String getLeft_dt() {
+		
 		return left_dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 
 	public void setLeft_dt(String dateString) {
+		if(dateString == null) {
+			this.left_dt = null;
+		}
 		this.left_dt = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);;
 	}
 

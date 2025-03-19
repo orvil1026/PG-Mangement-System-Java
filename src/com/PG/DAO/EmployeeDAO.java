@@ -86,13 +86,33 @@ public class EmployeeDAO {
 		ResultSet view = preparedStatement.executeQuery();
 		
 		while(view.next()) {
-			emp.setSalary(view.getInt("salary"));
-			emp.setDesc(view.getString("descrptn"));
-			emp.setName(view.getString("nm"));
-			emp.setMob_no(view.getString("mob_no"));
-			emp.setJoin_dt(view.getString("join_dt"));
-			emp.setLeft_dt(view.getString("left_dt"));
-			emp.setIs_active(view.getBoolean("is_active"));
+			emp.setSalary(view.wasNull() ? 0 : view.getInt("salary")); 
+
+			String desc = view.getString("descrptn");
+			emp.setDesc(desc != null ? desc : null ); // Default to empty string if NULL
+
+			String name = view.getString("nm");
+			emp.setName(name != null ? name : null); // Default to empty string
+
+			String mobNo = view.getString("mob_no");
+			emp.setMob_no(mobNo != null ? mobNo : null ); // Default to empty string
+
+			String joinDtStr = view.getString("join_dt");
+			if(joinDtStr != null) {
+				emp.setJoin_dt(joinDtStr); 
+			}
+
+			String leftDtStr = view.getString("left_dt");
+			if(leftDtStr != null) {
+				emp.setLeft_dt(leftDtStr); 
+			}
+			// Parse if not NULL
+
+			// Handle boolean (stored as INT)
+			boolean active = view.getInt("is_active") == 1; 
+			if (view.wasNull()) active = false; // If NULL, default to false
+			emp.setIs_active(active);
+
 		}
 		
 		return emp;

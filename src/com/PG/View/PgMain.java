@@ -16,7 +16,7 @@ public class PgMain {
 		
 		EmployeeDAO edao =  new EmployeeDAO();
 		try {
-			rtrn_flg = edao.insertEmployee(e);
+//			rtrn_flg = edao.insertEmployee(e);
 			e1 = edao.getEmpByID(1);
 		}catch(Exception ex){
 			System.out.println("Error");
