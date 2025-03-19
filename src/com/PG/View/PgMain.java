@@ -19,6 +19,8 @@ public class PgMain {
 		EmployeeDAO edao =  new EmployeeDAO();
 		try {
 //			rtrn_flg = edao.insertEmployee(e);
+			
+			edao.deleteEmpById(1);
 			emps = edao.getAllEmp();
 			
 			

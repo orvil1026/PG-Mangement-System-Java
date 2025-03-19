@@ -173,5 +173,18 @@ public class EmployeeDAO {
 		
 	}
 	
+	public int deleteEmpById(int e_id) throws ClassNotFoundException, SQLException{
+		int output = 0;
+		String sql = "Delete from Employee where e_id=?";
+		
+		PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
+		
+		preparedStatement.setInt(1, e_id);
+	
+		output = preparedStatement.executeUpdate();
+		
+		return output;
+	}
+	
 	
 }
