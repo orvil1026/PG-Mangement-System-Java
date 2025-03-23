@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.PG.Helper.Helper;
 import com.PG.Model.Spending;
-import java.time.LocalDate;
+
 
 public class SpendingDAO {
 
@@ -73,7 +73,7 @@ public class SpendingDAO {
                 resultSet.getInt("e_id"),
                 resultSet.getInt("s_id"),
                 resultSet.getInt("quantity"),
-                resultSet.getObject("trnsc_dt", LocalDate.class)
+                resultSet.getString("trnsc_dt")
             );
         }
 
@@ -95,7 +95,7 @@ public class SpendingDAO {
                 resultSet.getInt("e_id"),
                 resultSet.getInt("s_id"),
                 resultSet.getInt("quantity"),
-                resultSet.getObject("trnsc_dt", LocalDate.class)
+                resultSet.getString("trnsc_dt")
             );
             spendingList.add(spending);
         }

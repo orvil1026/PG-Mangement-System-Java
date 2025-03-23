@@ -53,5 +53,10 @@ public class Room {
 		this.occupied_count = occupied_count;
 	}
 	
+	public Room() {
+		super();
+	
+	}
+	
 	
 }

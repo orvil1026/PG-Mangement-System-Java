@@ -80,31 +80,39 @@ public class RentDAO {
 	}
 	
 	
-	public Rent getRentByRoomNo(int roomNo) throws ClassNotFoundException, SQLException {
+	public ArrayList<Rent> getRentByRoomNo(int roomNo) throws ClassNotFoundException, SQLException {
 	    String sql = "SELECT * FROM rent WHERE room_no = ?";
-	    Rent rent = new Rent();
-	    
+	   
+		ArrayList<Rent> rent_arr = new ArrayList<Rent>();
+
 	    PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
 	    preparedStatement.setInt(1, roomNo);
 	    
-	    ResultSet resultSet = preparedStatement.executeQuery();
-	    
-	    if (resultSet.next()) {
-	        rent.setRoom_no(resultSet.getInt("room_no"));
-	        rent.setT_id(resultSet.getInt("t_id"));
-	        rent.setR_id(resultSet.getInt("r_id"));
-	        rent.setAmount(resultSet.getInt("amount"));
-	        rent.setMode(resultSet.getString("mode_of_payment"));
-	        rent.setCategory(resultSet.getString("category"));
-	        rent.setTrnsc_dt(resultSet.getString("trnsc_dt"));
-	        rent.setFrm_dt(resultSet.getString("frm_dt"));
-	        rent.setTo_dt(resultSet.getString("to_dt"));
-	    }
-	    
-	    return rent;
+	    ResultSet view = preparedStatement.executeQuery();
+		
+		while(view.next()) {
+			
+			Rent rent = new Rent();
+			
+			 rent.setRoom_no(view.getInt("room_no"));
+	        rent.setT_id(view.getInt("t_id"));
+	        rent.setR_id(view.getInt("r_id"));
+	        rent.setAmount(view.getInt("amount"));
+	        rent.setMode(view.getString("mode_of_payment"));
+	        rent.setCategory(view.getString("category"));
+	        rent.setTrnsc_dt(view.getString("trnsc_dt"));
+	        rent.setFrm_dt(view.getString("frm_dt"));
+	        rent.setTo_dt(view.getString("to_dt"));
+			
+			rent_arr.add(rent);
+
+		}
+		
+		return rent_arr;
+	   
 	}
 	
-	public ArrayList<Rent> getAllEmp() throws ClassNotFoundException, SQLException{
+	public ArrayList<Rent> getAllRents() throws ClassNotFoundException, SQLException{
 		
 		ArrayList<Rent> rent_arr = new ArrayList<Rent>();
 		

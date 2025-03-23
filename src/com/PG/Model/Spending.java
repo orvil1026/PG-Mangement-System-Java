@@ -14,7 +14,7 @@ public class Spending {
 	private int s_id;
 	private int quantity;
 	
-	private LocalDate trnsc_dt;
+	private String trnsc_dt;
 	
 	@Override
 	public String toString() {
@@ -60,11 +60,11 @@ public class Spending {
 	
 	
 	
-	public LocalDate getTrnsc_dt() {
+	public String getTrnsc_dt() {
 		return trnsc_dt;
 	}
 
-	public void setTrnsc_dt(LocalDate trnsc_dt) {
+	public void setTrnsc_dt(String trnsc_dt) {
 		this.trnsc_dt = trnsc_dt;
 	}
 
@@ -106,7 +106,7 @@ public class Spending {
 	}
 	
 	
-		public Spending(String category, String desc, int amount, int e_id, int s_id, int quantity, LocalDate trnsc_dt) {
+		public Spending(String category, String desc, int amount, int e_id, int s_id, int quantity, String trnsc_dt) {
 		super();
 		this.category = category;
 		this.desc = desc;
@@ -116,6 +116,21 @@ public class Spending {
 		this.quantity = quantity;
 		this.trnsc_dt = trnsc_dt;
 	}
+		public Spending(String category, String desc, int amount, int e_id,  int quantity, String trnsc_dt) {
+			super();
+			this.category = category;
+			this.desc = desc;
+			this.amount = amount;
+			this.e_id = e_id;
+		
+			this.quantity = quantity;
+			this.trnsc_dt = trnsc_dt;
+		}
+		
+		public Spending() {
+			super();
+			
+		}
 
 	
 	
