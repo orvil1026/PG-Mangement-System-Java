@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.PG.Helper.Helper;
-import com.PG.Model.Employee;
+import com.PG.Model.Rent;
 
 public class RentDAO {
 
@@ -20,51 +20,58 @@ public class RentDAO {
 		PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
 		
 		
-		if(employee.isSpecifiedSalary()) {
-			preparedStatement.setInt(1, employee.getSalary());
+		if(rent.isSpecifiedT_id()) {
+			preparedStatement.setInt(1, rent.getT_id());
 		}else {
 			preparedStatement.setNull(1,java.sql.Types.INTEGER);
 		}
 		
-		if(employee.isSpecifiedDesc()) {
-			preparedStatement.setString(2, employee.getDesc());
+		if(rent.isSpecifiedRoom_no()) {
+			preparedStatement.setInt(2, rent.getRoom_no());
 		}else {
-			preparedStatement.setNull(2,java.sql.Types.VARCHAR);
+			preparedStatement.setNull(2,java.sql.Types.INTEGER);
 		}
 		
-		if(employee.isSpecifiedName()) {
-			preparedStatement.setString(3, employee.getName());
+		if(rent.isSpecifiedAmount()) {
+			preparedStatement.setInt(3, rent.getAmount());
 		}else {
-			preparedStatement.setNull(3,java.sql.Types.VARCHAR);
+			preparedStatement.setNull(3,java.sql.Types.INTEGER);
 
 		}
 		
-		if(employee.isSpecifiedMob_no()) {
-			preparedStatement.setString(4, employee.getMob_no());
+		if(rent.isSpecifiedMode()) {
+			preparedStatement.setString(4, rent.getMode());
 
 		}else {
-			preparedStatement.setNull(4,java.sql.Types.INTEGER);
+			preparedStatement.setNull(4,java.sql.Types.VARCHAR);
 		}
 		
-		if(employee.isSpecifiedJoin_dt()) {
-			preparedStatement.setString(5, employee.getJoin_dt());
+		if(rent.isSpecifiedCategory()) {
+			preparedStatement.setString(5, rent.getCategory());
 
 		}else {
-			preparedStatement.setNull(4,java.sql.Types.DATE);
+			preparedStatement.setNull(5,java.sql.Types.VARCHAR);
 		}
 		
-		if(employee.isSpecifiedLeft_dt()) {
-			preparedStatement.setString(6, employee.getLeft_dt());
+		if(rent.isSpecifiedTrnsc_dt()) {
+			preparedStatement.setString(6, rent.getTrnsc_dt());
 
 		}else {
-			preparedStatement.setNull(6,java.sql.Types.DATE);
+			preparedStatement.setNull(6,java.sql.Types.VARCHAR);
 		}
 		
-		if(employee.isSpecifiedActive()) {
-			preparedStatement.setBoolean(7, employee.isIs_active());
+		if(rent.isSpecifiedFrm_dt()) {
+			preparedStatement.setString(7, rent.getFrm_dt());
 
 		}else {
-			preparedStatement.setNull(7,java.sql.Types.BOOLEAN);
+			preparedStatement.setNull(7,java.sql.Types.VARCHAR);
+		}
+		
+		if(rent.isSpecifiedTo_dt()) {
+			preparedStatement.setString(8, rent.getTo_dt());
+
+		}else {
+			preparedStatement.setNull(8,java.sql.Types.VARCHAR);
 		}
 		
 		output = preparedStatement.executeUpdate();
@@ -73,57 +80,35 @@ public class RentDAO {
 	}
 	
 	
-	public Employee getEmpByID(int e_id) throws ClassNotFoundException, SQLException{
-		int output = 0;
-		String sql = "select * from Employee where e_id = ? ";
-		Employee emp = new Employee();
-		emp.setE_id(e_id);
-		
-		PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
-		
-		preparedStatement.setInt(1, e_id);
-		
-		
-		ResultSet view = preparedStatement.executeQuery();
-		
-		while(view.next()) {
-			emp.setSalary(view.wasNull() ? 0 : view.getInt("salary")); 
-
-			String desc = view.getString("descrptn");
-			emp.setDesc(desc != null ? desc : null ); // Default to empty string if NULL
-
-			String name = view.getString("nm");
-			emp.setName(name != null ? name : null); // Default to empty string
-
-			String mobNo = view.getString("mob_no");
-			emp.setMob_no(mobNo != null ? mobNo : null ); // Default to empty string
-
-			String joinDtStr = view.getString("join_dt");
-			if(joinDtStr != null) {
-				emp.setJoin_dt(joinDtStr); 
-			}
-
-			String leftDtStr = view.getString("left_dt");
-			if(leftDtStr != null) {
-				emp.setLeft_dt(leftDtStr); 
-			}
-			// Parse if not NULL
-
-			// Handle boolean (stored as INT)
-			boolean active = view.getInt("is_active") == 1; 
-			if (view.wasNull()) active = false; // If NULL, default to false
-			emp.setIs_active(active);
-
-		}
-		
-		return emp;
+	public Rent getRentByRoomNo(int roomNo) throws ClassNotFoundException, SQLException {
+	    String sql = "SELECT * FROM rent WHERE room_no = ?";
+	    Rent rent = new Rent();
+	    
+	    PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
+	    preparedStatement.setInt(1, roomNo);
+	    
+	    ResultSet resultSet = preparedStatement.executeQuery();
+	    
+	    if (resultSet.next()) {
+	        rent.setRoom_no(resultSet.getInt("room_no"));
+	        rent.setT_id(resultSet.getInt("t_id"));
+	        rent.setR_id(resultSet.getInt("r_id"));
+	        rent.setAmount(resultSet.getInt("amount"));
+	        rent.setMode(resultSet.getString("mode_of_payment"));
+	        rent.setCategory(resultSet.getString("category"));
+	        rent.setTrnsc_dt(resultSet.getString("trnsc_dt"));
+	        rent.setFrm_dt(resultSet.getString("frm_dt"));
+	        rent.setTo_dt(resultSet.getString("to_dt"));
+	    }
+	    
+	    return rent;
 	}
 	
-	public ArrayList<Employee> getAllEmp() throws ClassNotFoundException, SQLException{
+	public ArrayList<Rent> getAllEmp() throws ClassNotFoundException, SQLException{
 		
-		ArrayList<Employee> emps_arr = new ArrayList<Employee>();
+		ArrayList<Rent> rent_arr = new ArrayList<Rent>();
 		
-		String sql = "select * from Employee";
+		String sql = "select * from rent";
 		
 		
 		
@@ -134,52 +119,33 @@ public class RentDAO {
 		
 		while(view.next()) {
 			
-			Employee emp = new Employee();
+			Rent rent = new Rent();
 			
-			emp.setE_id(view.getInt("e_id"));
+			 rent.setRoom_no(view.getInt("room_no"));
+	        rent.setT_id(view.getInt("t_id"));
+	        rent.setR_id(view.getInt("r_id"));
+	        rent.setAmount(view.getInt("amount"));
+	        rent.setMode(view.getString("mode_of_payment"));
+	        rent.setCategory(view.getString("category"));
+	        rent.setTrnsc_dt(view.getString("trnsc_dt"));
+	        rent.setFrm_dt(view.getString("frm_dt"));
+	        rent.setTo_dt(view.getString("to_dt"));
 			
-			emp.setSalary(view.wasNull() ? 0 : view.getInt("salary")); 
-
-			String desc = view.getString("descrptn");
-			emp.setDesc(desc != null ? desc : null ); // Default to empty string if NULL
-
-			String name = view.getString("nm");
-			emp.setName(name != null ? name : null); // Default to empty string
-
-			String mobNo = view.getString("mob_no");
-			emp.setMob_no(mobNo != null ? mobNo : null ); // Default to empty string
-
-			String joinDtStr = view.getString("join_dt");
-			if(joinDtStr != null) {
-				emp.setJoin_dt(joinDtStr); 
-			}
-
-			String leftDtStr = view.getString("left_dt");
-			if(leftDtStr != null) {
-				emp.setLeft_dt(leftDtStr); 
-			}
-			// Parse if not NULL
-
-			// Handle boolean (stored as INT)
-			boolean active = view.getInt("is_active") == 1; 
-			if (view.wasNull()) active = false; // If NULL, default to false
-			emp.setIs_active(active);
-			
-			emps_arr.add(emp);
+			rent_arr.add(rent);
 
 		}
 		
-		return emps_arr;
+		return rent_arr;
 		
 	}
 	
-	public int deleteEmpById(int e_id) throws ClassNotFoundException, SQLException{
+	public int deleteRentById(int r_id) throws ClassNotFoundException, SQLException{
 		int output = 0;
-		String sql = "Delete from Employee where e_id=?";
+		String sql = "Delete from rent where r_id=?";
 		
 		PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
 		
-		preparedStatement.setInt(1, e_id);
+		preparedStatement.setInt(1, r_id);
 	
 		output = preparedStatement.executeUpdate();
 		

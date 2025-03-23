@@ -10,8 +10,8 @@ public class Employee {
 	
 	private boolean is_active;
 	
-	private LocalDate join_dt;
-	private LocalDate left_dt;
+	private String join_dt;
+	private String left_dt;
 	
 	private String desc;
 	private String name;
@@ -38,26 +38,22 @@ public class Employee {
 	}
 
 	public String getJoin_dt() {		
-		return join_dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+		return this.join_dt;
 	}
 
 	public void setJoin_dt(String dateString) {
-		if(dateString == null) {
-			this.join_dt = null;
-		}
-		this.join_dt = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
+		
+		this.join_dt = dateString;
 	}
 
 	public String getLeft_dt() {
 		
-		return left_dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+		return this.left_dt;
 	}
 
 	public void setLeft_dt(String dateString) {
-		if(dateString == null) {
-			this.left_dt = null;
-		}
-		this.left_dt = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);;
+		
+		this.left_dt = dateString;
 	}
 
 	public int getE_id() {
@@ -119,7 +115,7 @@ public class Employee {
 	}
 
 
-	public Employee(int e_id, int salary, String mob_no, boolean is_active, LocalDate join_dt, LocalDate left_dt,
+	public Employee(int e_id, int salary, String mob_no, boolean is_active, String join_dt, String left_dt,
 			String desc, String name) {
 		super();
 		this.e_id = e_id;
@@ -132,7 +128,7 @@ public class Employee {
 		this.name = name;
 	}
 	
-	public Employee( int salary, String mob_no, boolean is_active, LocalDate join_dt, LocalDate left_dt,
+	public Employee( int salary, String mob_no, boolean is_active, String join_dt, String left_dt,
 			String desc, String name) {
 		super();
 	

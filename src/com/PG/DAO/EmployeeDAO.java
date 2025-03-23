@@ -50,7 +50,7 @@ public class EmployeeDAO {
 			preparedStatement.setString(5, employee.getJoin_dt());
 
 		}else {
-			preparedStatement.setNull(4,java.sql.Types.DATE);
+			preparedStatement.setNull(5,java.sql.Types.DATE);
 		}
 		
 		if(employee.isSpecifiedLeft_dt()) {

@@ -1,6 +1,6 @@
 package com.PG.Model;
 
-import java.time.LocalDate;
+
 
 
 public class Rent {
@@ -14,9 +14,9 @@ public class Rent {
 	private String category;
 
 	
-	private LocalDate trnsc_dt;
-	private LocalDate frm_dt;
-	private LocalDate to_dt;
+	private String trnsc_dt;
+	private String frm_dt;
+	private String to_dt;
 	
 	
 	
@@ -44,22 +44,22 @@ public class Rent {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-	public LocalDate getTrnsc_dt() {
+	public String getTrnsc_dt() {
 		return trnsc_dt;
 	}
-	public void setTrnsc_dt(LocalDate trnsc_dt) {
+	public void setTrnsc_dt(String trnsc_dt) {
 		this.trnsc_dt = trnsc_dt;
 	}
-	public LocalDate getFrm_dt() {
+	public String getFrm_dt() {
 		return frm_dt;
 	}
-	public void setFrm_dt(LocalDate frm_dt) {
+	public void setFrm_dt(String frm_dt) {
 		this.frm_dt = frm_dt;
 	}
-	public LocalDate getTo_dt() {
+	public String getTo_dt() {
 		return to_dt;
 	}
-	public void setTo_dt(LocalDate to_dt) {
+	public void setTo_dt(String to_dt) {
 		this.to_dt = to_dt;
 	}
 	public int getRoom_no() {
@@ -114,7 +114,7 @@ public class Rent {
 
 	
 	public Rent(int amount, int t_id, int r_id, int room_no, String mode, String category,
-			LocalDate trnsc_dt, LocalDate frm_dt, LocalDate to_dt) {
+			String trnsc_dt, String frm_dt, String to_dt) {
 		super();
 		this.amount = amount;
 		this.t_id = t_id;
@@ -125,6 +125,11 @@ public class Rent {
 		this.trnsc_dt = trnsc_dt;
 		this.frm_dt = frm_dt;
 		this.to_dt = to_dt;
+	}
+	
+	public Rent() {
+		super();
+		
 	}
 	
 	
