@@ -10,14 +10,14 @@ import java.time.LocalDate;
 
 public class TenantDAO {
 
-    public int insertTenant(Tenant tenant, String nm, String ph_no) throws ClassNotFoundException, SQLException {
+    public int insertTenant(Tenant tenant) throws ClassNotFoundException, SQLException {
         int output = 0;
         String sql = "INSERT INTO Tenant (nm, ph_no, monthly_rent, room_no, is_active, join_dt, left_dt) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = Helper.getPreparedStatement(sql);
 
-        preparedStatement.setString(1, nm);
-        preparedStatement.setString(2, ph_no);
+        preparedStatement.setString(1, tenant.getNm());
+        preparedStatement.setString(2, tenant.getPhNo());
 
         if (tenant.isSpecifiedMonthlyRent()) {
             preparedStatement.setInt(3, tenant.getMonthly_rent());
@@ -61,11 +61,13 @@ public class TenantDAO {
         if (resultSet.next()) {
             tenant = new Tenant(
                 resultSet.getInt("t_id"),
-                resultSet.getObject("join_dt", LocalDate.class),
+                resultSet.getString("join_dt"),
                 resultSet.getInt("monthly_rent"),
                 resultSet.getBoolean("is_active"),
-                resultSet.getObject("left_dt", LocalDate.class),
-                resultSet.getInt("room_no")
+                resultSet.getString("left_dt"),
+                resultSet.getInt("room_no"),
+                resultSet.getString("nm"),
+                resultSet.getString("ph_no")
             );
         }
 
@@ -82,11 +84,13 @@ public class TenantDAO {
         while (resultSet.next()) {
             Tenant tenant = new Tenant(
                 resultSet.getInt("t_id"),
-                resultSet.getObject("join_dt", LocalDate.class),
+                resultSet.getString("join_dt"),
                 resultSet.getInt("monthly_rent"),
                 resultSet.getBoolean("is_active"),
-                resultSet.getObject("left_dt", LocalDate.class),
-                resultSet.getInt("room_no")
+                resultSet.getString("left_dt"),
+                resultSet.getInt("room_no"),
+                resultSet.getString("nm"),
+                resultSet.getString("ph_no")
             );
             tenantList.add(tenant);
         }
